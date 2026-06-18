@@ -40,6 +40,8 @@ export function RevealImage({
         />
       </motion.div>
 
+      <span className="reveal-img__shade" />
+
       <motion.span
         className="reveal-img__curtain"
         initial={{ y: "0%" }}

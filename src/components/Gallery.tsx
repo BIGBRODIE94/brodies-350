@@ -133,7 +133,12 @@ function GalleryCard({
         ease: [0.16, 1, 0.3, 1],
       }}
     >
-      <RevealImage src={shot.src} alt={shot.alt} className="gallery__reveal">
+      <RevealImage
+        src={shot.src}
+        alt={shot.alt}
+        kenBurns
+        className="gallery__reveal"
+      >
         <motion.span
           className="gallery__glare"
           style={{
