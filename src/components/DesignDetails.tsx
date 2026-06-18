@@ -5,6 +5,7 @@ import {
   designImagePrimary,
   designImageSecondary,
 } from "../data/carData";
+import { RevealImage } from "./RevealImage";
 
 export function DesignDetails() {
   const ref = useRef<HTMLElement>(null);
@@ -30,10 +31,22 @@ export function DesignDetails() {
         <div className="design__layout">
           <div className="design__media-col">
             <motion.figure className="design__media design__media--tall" style={{ y: primaryY }}>
-              <img src={designImagePrimary} alt="Lexus IS 350 F Sport at night" />
+              <RevealImage
+                src={designImagePrimary}
+                alt="Lexus IS 350 F Sport at night"
+                kenBurns
+                className="design__reveal"
+              />
+              <span className="img-chip img-chip--corner">IVORY CABIN</span>
             </motion.figure>
             <motion.figure className="design__media" style={{ y: secondaryY }}>
-              <img src={designImageSecondary} alt="Lexus IS 350 F Sport profile" />
+              <RevealImage
+                src={designImageSecondary}
+                alt="Lexus IS 350 F Sport profile"
+                kenBurns
+                className="design__reveal"
+              />
+              <span className="img-chip img-chip--corner">CEMENT GRAY</span>
             </motion.figure>
           </div>
 

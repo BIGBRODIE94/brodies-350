@@ -207,16 +207,10 @@
   border: 1px solid var(--line);
 }
 
-.narrative__media-inner {
+.narrative__parallax {
   position: absolute;
-  inset: -8% 0;
+  inset: -11% 0;
   will-change: transform;
-}
-
-.narrative__media-inner img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .narrative__heading {
@@ -327,13 +321,6 @@
   aspect-ratio: 3 / 4;
 }
 
-.design__media img {
-  width: 100%;
-  height: 110%;
-  object-fit: cover;
-  object-position: center;
-}
-
 .design__list {
   list-style: none;
   display: flex;
@@ -396,58 +383,116 @@
 
 .gallery__item {
   position: relative;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  background: var(--bg-elevated);
+  border: none;
+  background: none;
   cursor: pointer;
   padding: 0;
-  border-radius: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
-.gallery__item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+.gallery__reveal {
+  border: 1px solid var(--line);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.35);
+  transition: box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.55s ease;
 }
 
-.gallery__item:hover img {
-  transform: scale(1.06);
+.gallery__item:hover .gallery__reveal {
+  border-color: var(--line-strong);
+  box-shadow: 0 34px 80px rgba(0, 0, 0, 0.6);
+}
+
+.gallery__item .reveal-img__photo {
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery__item:hover .reveal-img__photo {
+  transform: scale(1.07);
+}
+
+.gallery__glare {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: overlay;
+  transition: opacity 0.4s ease;
+}
+
+.gallery__item:hover .gallery__glare {
+  opacity: 1;
+}
+
+.gallery__index {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  z-index: 4;
+  font-size: 0.92rem;
+  letter-spacing: 0.2em;
+  color: var(--ink);
+  opacity: 0.55;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.85);
+  transition: opacity 0.4s ease;
+}
+
+.gallery__item:hover .gallery__index {
+  opacity: 0.95;
+}
+
+.gallery__meta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 32px 16px 14px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72), transparent);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.gallery__item:hover .gallery__meta {
+  opacity: 1;
 }
 
 .gallery__caption {
-  position: absolute;
-  left: 14px;
-  bottom: 12px;
-  z-index: 2;
   font-family: var(--font-condensed);
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   color: var(--ink);
-  opacity: 0;
   transform: translateY(8px);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.8);
-}
-
-.gallery__item::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 45%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gallery__item:hover .gallery__caption {
-  opacity: 1;
   transform: translateY(0);
 }
 
-.gallery__item:hover::after {
+.gallery__view {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-condensed);
+  letter-spacing: 0.2em;
+  font-size: 0.64rem;
+  color: var(--ink);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+}
+
+.gallery__item:hover .gallery__view {
   opacity: 1;
+  transform: translateY(0);
 }
 
 /* Mosaic spans */
@@ -469,6 +514,141 @@
 }
 .gallery__item:nth-child(6) {
   grid-column: span 2;
+}
+
+/* ============ REVEAL IMAGE ============ */
+.reveal-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+
+.reveal-img__zoom {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.reveal-img__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.reveal-img__photo.is-kenburns {
+  animation: kenburns 26s ease-in-out 1.6s infinite alternate;
+}
+
+@keyframes kenburns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.09) translate(-1.5%, -1.5%);
+  }
+}
+
+.reveal-img__curtain {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: linear-gradient(
+    180deg,
+    var(--bg-elevated) 0%,
+    var(--bg-soft) 100%
+  );
+  will-change: transform;
+}
+
+.reveal-img__sheen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 6;
+  width: 60%;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(245, 245, 247, 0.18) 50%,
+    transparent 100%
+  );
+  transform: skewX(-12deg);
+}
+
+.reveal-img__corner {
+  position: absolute;
+  z-index: 7;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--line-strong);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.reveal-img__corner--tl {
+  top: 12px;
+  left: 12px;
+  border-right: none;
+  border-bottom: none;
+}
+.reveal-img__corner--tr {
+  top: 12px;
+  right: 12px;
+  border-left: none;
+  border-bottom: none;
+}
+.reveal-img__corner--bl {
+  bottom: 12px;
+  left: 12px;
+  border-right: none;
+  border-top: none;
+}
+.reveal-img__corner--br {
+  bottom: 12px;
+  right: 12px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Floating spec chip overlay */
+.img-chip {
+  position: absolute;
+  z-index: 8;
+  left: 18px;
+  bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 9px 15px;
+  font-family: var(--font-condensed);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.68rem;
+  color: var(--ink);
+  background: rgba(10, 10, 12, 0.7);
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.img-chip b {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.img-chip--corner {
+  left: auto;
+  right: 18px;
+  bottom: 18px;
 }
 
 /* ============ LIGHTBOX ============ */

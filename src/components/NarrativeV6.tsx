@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { narrative, narrativeImage } from "../data/carData";
+import { RevealImage } from "./RevealImage";
 
 export function NarrativeV6() {
   const ref = useRef<HTMLElement>(null);
@@ -8,19 +9,29 @@ export function NarrativeV6() {
     target: ref,
     offset: ["start end", "end start"],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.15, 1]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-9%", "9%"]);
 
   return (
     <section className="section narrative" ref={ref}>
       <div className="container narrative__grid">
         <div className="narrative__media">
-          <motion.div
-            className="narrative__media-inner"
-            style={{ y: imageY, scale: imageScale }}
-          >
-            <img src={narrativeImage} alt="Lexus IS 350 F Sport rear" />
+          <motion.div className="narrative__parallax" style={{ y: imageY }}>
+            <RevealImage
+              src={narrativeImage}
+              alt="Lexus IS 350 F Sport rear"
+              kenBurns
+              className="narrative__reveal"
+            />
           </motion.div>
+          <motion.span
+            className="img-chip"
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-12%" }}
+            transition={{ duration: 0.7, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <b>3.5L</b> V6 &middot; 311 HP
+          </motion.span>
         </div>
 
         <div className="narrative__text">
