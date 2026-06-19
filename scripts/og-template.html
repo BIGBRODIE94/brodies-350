@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+
+      .card {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        background: #0a0a0b;
+        overflow: hidden;
+        font-family: "Oswald", sans-serif;
+      }
+
+      .photo {
+        position: absolute;
+        inset: 0;
+        background: url("../public/car/night-front.png") center 42% / cover no-repeat;
+        filter: brightness(0.72) contrast(1.15) saturate(0.9);
+        transform: scale(1.08);
+      }
+
+      .shade {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(8, 8, 10, 0.92) 0%,
+            rgba(8, 8, 10, 0.35) 34%,
+            rgba(8, 8, 10, 0.55) 62%,
+            rgba(8, 8, 10, 0.95) 100%
+          ),
+          radial-gradient(
+            120% 90% at 50% 40%,
+            transparent 28%,
+            rgba(8, 8, 10, 0.82) 100%
+          );
+      }
+
+      .grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.08;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
+      .content {
+        position: relative;
+        z-index: 2;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 54px 64px 48px;
+      }
+
+      .eyebrow {
+        font-size: 18px;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: rgba(245, 245, 247, 0.55);
+      }
+
+      .eyebrow::before {
+        content: "";
+        display: inline-block;
+        width: 42px;
+        height: 1px;
+        background: rgba(245, 245, 247, 0.35);
+        margin-right: 18px;
+        vertical-align: middle;
+      }
+
+      .title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 148px;
+        line-height: 0.88;
+        letter-spacing: 0.02em;
+        color: #f5f5f7;
+        margin-top: 18px;
+      }
+
+      .sub {
+        margin-top: 18px;
+        font-size: 24px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(245, 245, 247, 0.72);
+      }
+
+      .footer {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+
+      .plate {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 22px 8px;
+        background: #f3f4f0;
+        color: #1a2742;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      }
+
+      .plate-region {
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        color: #b8902b;
+      }
+
+      .plate-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 34px;
+        letter-spacing: 0.08em;
+        line-height: 1;
+      }
+
+      .domain {
+        font-size: 22px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: rgba(245, 245, 247, 0.62);
+      }
+
+      .corner {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        border: 1px solid rgba(245, 245, 247, 0.35);
+        z-index: 3;
+      }
+      .corner--tl {
+        top: 28px;
+        left: 28px;
+        border-right: none;
+        border-bottom: none;
+      }
+      .corner--tr {
+        top: 28px;
+        right: 28px;
+        border-left: none;
+        border-bottom: none;
+      }
+      .corner--bl {
+        bottom: 28px;
+        left: 28px;
+        border-right: none;
+        border-top: none;
+      }
+      .corner--br {
+        bottom: 28px;
+        right: 28px;
+        border-left: none;
+        border-top: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="photo"></div>
+      <div class="shade"></div>
+      <div class="grain"></div>
+      <span class="corner corner--tl"></span>
+      <span class="corner corner--tr"></span>
+      <span class="corner corner--bl"></span>
+      <span class="corner corner--br"></span>
+      <div class="content">
+        <div>
+          <div class="eyebrow">Lexus · IS 350 F Sport</div>
+          <div class="title">BRODIES 350</div>
+          <div class="sub">311 HP · Naturally Aspirated V6</div>
+        </div>
+        <div class="footer">
+          <div class="plate">
+            <span class="plate-region">Virginia</span>
+            <span class="plate-num">UBE-8953</span>
+          </div>
+          <div class="domain">brodies-350.vercel.app</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
